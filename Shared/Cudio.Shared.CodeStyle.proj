@@ -1,0 +1,16 @@
+﻿<Project>
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="..\..\Shared\stylecop.json" Link="Properties\stylecop.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
+			<PrivateAssets>all</PrivateAssets>
+			<DevelopmentDependency>true</DevelopmentDependency>
+		</PackageReference>
+	</ItemGroup>
+</Project>

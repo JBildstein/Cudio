@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\Shared\Cudio.Shared.Test.proj" />
+  
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Cudio.AspNetCore</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\Cudio.AspNetCore\Cudio.AspNetCore.csproj" />
+  </ItemGroup>
+</Project>

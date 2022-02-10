@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\Shared\Cudio.Shared.CodeStyle.proj" />
+  <Import Project="..\..\Shared\Cudio.Shared.NuGet.proj" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <VersionPrefix>$(AssemblyVersion)</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
+    <PackageId>Bildstein.Cudio.AspNetCore</PackageId>
+    <Description>ASP.NET Core specific types for Cudio</Description>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cudio\Cudio.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+</Project>

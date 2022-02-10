@@ -1,0 +1,75 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{948ACB1F-61B9-439E-B7AA-DBC0E2E9E6CC}"
+	ProjectSection(SolutionItems) = preProject
+		Shared\Cudio.Shared.CodeStyle.proj = Shared\Cudio.Shared.CodeStyle.proj
+		Shared\Cudio.Shared.NuGet.proj = Shared\Cudio.Shared.NuGet.proj
+		Shared\Cudio.Shared.Test.proj = Shared\Cudio.Shared.Test.proj
+		Shared\stylecop.json = Shared\stylecop.json
+		Shared\xunit.runner.json = Shared\xunit.runner.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3862DABE-0CBB-44A4-96AC-964CB282C0CF}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Github", "Github", "{A8D5D9A0-0D4F-4395-A11D-D75C0E4E505F}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug_report.md = .github\ISSUE_TEMPLATE\bug_report.md
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{74423068-8EF1-481E-92E6-56DB73CFCC65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cudio", "Source\Cudio\Cudio.csproj", "{5FB99FB1-DCD4-4EFB-96C1-724B7266FEA9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cudio.AspNetCore", "Source\Cudio.AspNetCore\Cudio.AspNetCore.csproj", "{D6A043D1-0704-4CA6-BCD3-83AD405FFB92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{115C0261-003F-41DC-BD71-9309B3B4C642}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cudio.UnitTests", "Tests\Cudio.UnitTests\Cudio.UnitTests.csproj", "{1691D823-B57B-4AF3-8465-5D9BB03E60C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cudio.AspNetCore.UnitTests", "Tests\Cudio.AspNetCore.UnitTests\Cudio.AspNetCore.UnitTests.csproj", "{198DAD9F-BBD0-4F8A-B3A1-2F6C2D3400B2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FB99FB1-DCD4-4EFB-96C1-724B7266FEA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FB99FB1-DCD4-4EFB-96C1-724B7266FEA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FB99FB1-DCD4-4EFB-96C1-724B7266FEA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FB99FB1-DCD4-4EFB-96C1-724B7266FEA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6A043D1-0704-4CA6-BCD3-83AD405FFB92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6A043D1-0704-4CA6-BCD3-83AD405FFB92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6A043D1-0704-4CA6-BCD3-83AD405FFB92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6A043D1-0704-4CA6-BCD3-83AD405FFB92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1691D823-B57B-4AF3-8465-5D9BB03E60C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1691D823-B57B-4AF3-8465-5D9BB03E60C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1691D823-B57B-4AF3-8465-5D9BB03E60C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1691D823-B57B-4AF3-8465-5D9BB03E60C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{198DAD9F-BBD0-4F8A-B3A1-2F6C2D3400B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{198DAD9F-BBD0-4F8A-B3A1-2F6C2D3400B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{198DAD9F-BBD0-4F8A-B3A1-2F6C2D3400B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{198DAD9F-BBD0-4F8A-B3A1-2F6C2D3400B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A8D5D9A0-0D4F-4395-A11D-D75C0E4E505F} = {3862DABE-0CBB-44A4-96AC-964CB282C0CF}
+		{5FB99FB1-DCD4-4EFB-96C1-724B7266FEA9} = {74423068-8EF1-481E-92E6-56DB73CFCC65}
+		{D6A043D1-0704-4CA6-BCD3-83AD405FFB92} = {74423068-8EF1-481E-92E6-56DB73CFCC65}
+		{1691D823-B57B-4AF3-8465-5D9BB03E60C9} = {115C0261-003F-41DC-BD71-9309B3B4C642}
+		{198DAD9F-BBD0-4F8A-B3A1-2F6C2D3400B2} = {115C0261-003F-41DC-BD71-9309B3B4C642}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {71993117-6FD8-46FF-B653-373C0FE43D29}
+	EndGlobalSection
+EndGlobal

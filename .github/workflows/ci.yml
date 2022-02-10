@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+    
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 6.0.x
+        source-url: https://nuget.pkg.github.com/JBildstein/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: Install dependencies
+      run: dotnet restore
+
+    - name: Test
+      run: dotnet test --no-restore --verbosity minimal --collect:"XPlat Code Coverage" --results-directory ./Coverage
+    - name: Copy Coverage To Predictable Location
+      run: cp Coverage/**/coverage.cobertura.xml coverage.cobertura.xml
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.2.0
+      with:
+        filename: coverage.cobertura.xml
+
+    - name: Pack Cudio
+      run: dotnet pack Source/Cudio -c Release -o Publish --no-restore --version-suffix ci.${{github.run_number}}
+    - name: Pack Cudio.AspNetCore
+      run: dotnet pack Source/Cudio.AspNetCore -c Release -o Publish --no-restore --version-suffix ci.${{github.run_number}}
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Packages
+        path: Publish/**
+    - name: Publish NuGet
+      run: dotnet nuget push Publish/*.nupkg --no-symbols true --skip-duplicate -k ${{secrets.GITHUB_TOKEN}}

@@ -24,23 +24,12 @@ jobs:
       run: dotnet restore
 
     - name: Test
-      run: dotnet test --no-restore --verbosity minimal --collect:"XPlat Code Coverage" --results-directory ./Coverage
-    - name: Copy Coverage To Predictable Location
-      run: cp --backup=numbered Coverage/**/coverage.cobertura.xml Coverage/
-    - name: Code Coverage Summary Report
-      uses: irongut/CodeCoverageSummary@v1.2.0
-      with:
-        filename: Coverage/coverage.cobertura.xml,Coverage/coverage.cobertura.xml.~1~
+      run: dotnet test --no-restore --verbosity minimal
 
     - name: Pack Cudio
       run: dotnet pack Source/Cudio -c Release -o Publish --no-restore --version-suffix ci.${{github.run_number}}
     - name: Pack Cudio.AspNetCore
       run: dotnet pack Source/Cudio.AspNetCore -c Release -o Publish --no-restore --version-suffix ci.${{github.run_number}}
 
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: Packages
-        path: Publish/**
-    - name: Publish NuGet
+    - name: Publish NuGet to Github
       run: dotnet nuget push Publish/*.nupkg --no-symbols true --skip-duplicate -k ${{secrets.GITHUB_TOKEN}}

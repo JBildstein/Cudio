@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1.7.2
+      uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
         source-url: https://nuget.pkg.github.com/JBildstein/index.json
@@ -26,11 +26,11 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity minimal --collect:"XPlat Code Coverage" --results-directory ./Coverage
     - name: Copy Coverage To Predictable Location
-      run: cp Coverage/**/coverage.cobertura.xml coverage.cobertura.xml
+      run: cp --backup=numbered Coverage/**/coverage.cobertura.xml Coverage/
     - name: Code Coverage Summary Report
       uses: irongut/CodeCoverageSummary@v1.2.0
       with:
-        filename: coverage.cobertura.xml
+        filename: Coverage/coverage.cobertura.xml,Coverage/coverage.cobertura.xml.~1~
 
     - name: Pack Cudio
       run: dotnet pack Source/Cudio -c Release -o Publish --no-restore --version-suffix ci.${{github.run_number}}

@@ -8,7 +8,10 @@ namespace Cudio
     /// </summary>
     public sealed class SystemCommitableTransaction : ITransaction
     {
-        private readonly CommittableTransaction transaction;
+        /// <summary>
+        /// Gets the underlying transaction.
+        /// </summary>
+        public CommittableTransaction Transaction { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SystemCommitableTransaction"/> class.
@@ -16,7 +19,7 @@ namespace Cudio
         /// <param name="transaction">The underlying transaction.</param>
         public SystemCommitableTransaction(CommittableTransaction transaction)
         {
-            this.transaction = transaction;
+            Transaction = transaction;
         }
 
         /// <summary>
@@ -31,20 +34,20 @@ namespace Cudio
         /// <inheritdoc/>
         public async Task Commit()
         {
-            await Task.Factory.FromAsync(transaction.BeginCommit, transaction.EndCommit, null);
+            await Task.Factory.FromAsync(Transaction.BeginCommit, Transaction.EndCommit, null);
         }
 
         /// <inheritdoc/>
         public Task Rollback()
         {
-            transaction.Rollback();
+            Transaction.Rollback();
             return Task.CompletedTask;
         }
 
         /// <inheritdoc/>
         public ValueTask DisposeAsync()
         {
-            transaction.Dispose();
+            Transaction.Dispose();
             return ValueTask.CompletedTask;
         }
     }

@@ -57,18 +57,6 @@ namespace Cudio
         }
 
         /// <inheritdoc/>
-        public async Task<CommandResult> ExecuteForValue<T>(T value)
-        {
-            return await Execute(new ValueCommand<T>(value));
-        }
-
-        /// <inheritdoc/>
-        public async Task<CommandResult> ExecuteForCud<T>(T value, ChangeType changeType)
-        {
-            return await Execute(new CudCommand<T>(value, changeType));
-        }
-
-        /// <inheritdoc/>
         public async Task ExecuteDirect<TCommand>(TCommand command)
             where TCommand : ICommand
         {

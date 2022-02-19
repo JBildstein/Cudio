@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Cudio.Commands
+namespace Cudio
 {
     /// <summary>
     /// Contains extension methods for the <see cref="ICommandBus"/>.

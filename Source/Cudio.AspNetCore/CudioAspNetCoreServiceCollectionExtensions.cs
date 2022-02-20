@@ -11,7 +11,7 @@ namespace Cudio.AspNetCore
     {
         /// <summary>
         /// Adds the Cudio services and registers command and query handlers defined in the calling assembly.
-        /// You still need to add a <see cref="IServiceScopeFactory"/> yourself depending on what DB or ORM you use.
+        /// You still need to add a <see cref="ITransactionFactory"/> yourself depending on what DB or ORM you use.
         /// </summary>
         /// <param name="services">The service collection to add the services to.</param>
         /// <returns>The service collection.</returns>
@@ -22,7 +22,7 @@ namespace Cudio.AspNetCore
 
         /// <summary>
         /// Adds the Cudio services and registers command and query handlers defined in the given assembly.
-        /// You still need to add a <see cref="IServiceScopeFactory"/> yourself depending on what DB or ORM you use.
+        /// You still need to add a <see cref="ITransactionFactory"/> yourself depending on what DB or ORM you use.
         /// </summary>
         /// <param name="services">The service collection to add the services to.</param>
         /// <param name="handlerAssembly">The assembly that contains command and query handler types.</param>
@@ -34,7 +34,7 @@ namespace Cudio.AspNetCore
 
         /// <summary>
         /// Adds the Cudio services and registers command and query handlers defined in the given assemblies.
-        /// You still need to add a <see cref="IServiceScopeFactory"/> yourself depending on what DB or ORM you use.
+        /// You still need to add a <see cref="ITransactionFactory"/> yourself depending on what DB or ORM you use.
         /// </summary>
         /// <param name="services">The service collection to add the services to.</param>
         /// <param name="handlerAssemblies">The assemblies that contain command and query handler types.</param>
@@ -46,7 +46,7 @@ namespace Cudio.AspNetCore
 
         /// <summary>
         /// Adds the Cudio services and registers command and query handlers defined in the given assembly.
-        /// You still need to add a <see cref="IServiceScopeFactory"/> yourself depending on what DB or ORM you use.
+        /// You still need to add a <see cref="ITransactionFactory"/> yourself depending on what DB or ORM you use.
         /// </summary>
         /// <param name="services">The service collection to add the services to.</param>
         /// <param name="allowedTypes">The list of types that contains various handlers for Cudio.</param>

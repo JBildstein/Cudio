@@ -2,23 +2,25 @@
 
 [![CI](https://github.com/JBildstein/Cudio/actions/workflows/ci.yml/badge.svg)](https://github.com/JBildstein/Cudio/actions/workflows/ci.yml)
 
-Cudio, short for "CUD it out" (where CUD is CRUD without read), is a library to help you write clean applications in a CQ(R)S style.
+Cudio is a C#/.NET library to help you write clean applications in a CQ(R)S style.
+It integrates well with ASP.NET Core but it can be used anywhere you like.
+Cudio is short for "CUD it out" (where CUD is CRUD without read) which is a play on the phrase "cut it out", i.e. stop doing plain CRUD and separate it into CUD and R(ead).
 
 [CQS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation "CQS description on Wikipedia") stands for Command Query Separation and is the simple principle of separating methods that modify data and ones that return data.
 
 [CQRS](https://martinfowler.com/bliki/CQRS.html "CQRS description by Martin Fowler") stands for Command Query Responsibility Segregation and applies the CQS principle as an architecture (follow the link for an in-depth description).
 
 Cudio is not a full blown CQRS framework but rather a library that applies the CQS principle and borrows some concepts from CQRS without inheriting all the complexities.
-The goal is to keep your application clean, as simple as possible and as complex as necessary by allowing you to opt into more complicated use cases as needed.
+The goal is to keep your application clean and as simple as possible by allowing you to opt into more complicated use cases as needed.
 
 You can start out with simple commands and queries mimicking a CRUD style application but already benefiting from clean separation of logic.
 Very soon you'll likely want to create more queries that do more than just read a single entity.
-Later you may want to create more than one command for creating a single model e.g. because your business logic differs depending on who created it.
+Later you may want more than one command for creating a single model, e.g. because your business logic differs depending on who created it.
 
-Then if you want to go a step further, you can also separate the tables (and even DB) for writing and reading to optimize each use case.
+Then, if you want to go a step further, you can also separate the tables (and even DB) for writing and reading to optimize each use case.
 When storing data you typically want it normalized and easily updatable. For reading, denormalized data is typically far quicker to access and queries are simpler to write.
 
-With Cudio it's very easy to do this, even if you only need it for some tables and not all.
+With Cudio it's very easy to do this, even if you only need it for some tables and not all of them.
 When executing a command, you register all changes that were made (this may be integrated with an ORM) and provide a read table builder that reacts to those changes.
 The nice thing about this is that it doesn't matter which command made a change, in fact, no command needs to (or even should) have knowledge of the read optimized tables at all.
 So whenever you add a new command that changes any data, all the read optimized tables will just continue to work and you can't forget to add logic to update them.
@@ -27,12 +29,18 @@ Another use case for a read table builder would be some kind of data change log.
 e.g. every time the UserRights table is updated by a command, the read table builder can store the old and new value for auditing purposes.
 
 To some extent this can be done within a DB as well (e.g. with triggers or materialized views) but with Cudio it's DB agnostic and you can execute complex business logic on the data before storing it.
-The drawback to the whole read optimized tables concept is that data writes will be slower because multiple tables (or potentially DBs) have to be written to, plus a small overhead for the change tracking.
-This means that applications that primarily write data and read very little or only simple things won't be suited well for this approach.
+This means that applications that primarily write data and read very little or only simple data won't be suited well for this approach.
+The drawback to the whole read optimized tables concept is that data writes will be slower because multiple tables (or potentially DBs) have to be written to and a small overhead for the change tracking is added.
 
-Read optimized tables normally only contain data that can be recreated from the write optimized data. This means you can just drop a read optimized table and recreated it again from existing data (hydrate).
+Read optimized tables normally only contain data that can be recreated from the write optimized data.
+This means you can just drop a read optimized table and recreated it again from existing data (hydrate).
 Sometimes that's just easier after a bugfix or when the schema or business logic was changed.
 That's completely up to you though, Cudio won't stand in the way of either choice.
+
+To tie everything together, there is a command and a query bus to which you pass an instance of your command or query.
+The bus then looks for the correct command or query handler, checks optional authorization and validation and then executes it.
+After a command has made changes, the bus will also make sure that the read optimized tables are updated.
+For more details check out the [Command and Query Bus documentation](Docs/Bus.md).
 
 ## Examples
 
@@ -94,8 +102,7 @@ public class CreateBookCommandHandler : IFullCommandHandler<CreateBookCommand>
 }
 ```
 If you don't need the `Authorize` or `Validate` methods you don't have to use them, just implement a different handler interface.
-There's `ICommandHandler` (only Execute), `IAuthorizedCommandHandler` (Authorize, Execute),
-`IValidatedCommandHandler` (Validate, Execute) and as above `IFullCommandHandler` (Authorize, Validate, Execute).
+Check out the [Command Documentation](Docs/Commands.md) for more details.
 
 **Query**
 
@@ -129,8 +136,8 @@ public class GetBookQueryHandler : IQueryHandler<GetBookQuery, Book>
     }
 }
 ```
-In this example the query handler doesn't need validation or authorization but it can be added just like with the command handler with the following interfaces:
-`IQueryHandler` (only Execute), `IAuthorizedQueryHandler` (Authorize, Execute), `IQueryCommandHandler` (Validate, Execute) and `IFullQueryHandler` (Authorize, Validate, Execute).
+In this example the query handler doesn't need validation or authorization but it can be added just like with the command handler above.
+Check out the [Query Documentation](Docs/Queries.md) for more details.
 
 **Using it**
 
@@ -175,6 +182,7 @@ public class BookController
 }
 ```
 The `ICommandBus` and `IQueryBus` are part of Cudio and would typically be registered with a DI framework.
+For more infos on busses, check out the [Command and Query Bus documentation](Docs/Bus.md).
 
 **Read optimized table builder**
 
@@ -237,53 +245,6 @@ Whenever a command changes a value, Cudio makes sure that the appropriate `Creat
 If multiple values were changed, the handlers are simply called repeatedly for each value (in no guaranteed order).
 If no method for a value exists (e.g. Author create in the example above), it's simply ignored and nothing happens.
 
-## Command/Query Bus Flow
-
-The flow for Create/Update/Delete goes:
-
-```
-Request (e.g. HTTP, user interaction, CRON job, etc.)
-   |
-Create command instance (e.g. CreateBookCommand)
-   |
-Send command to command bus
-   |
-  Within the bus, this happens:
-    \
-    Authorization of command (e.g. is user allowed to do this)
-      |
-    Validation of command (e.g. is the value supplied valid)
-      |
-    Execute command/store data in write table
-      |
-    Every read side update handler for the changed entities is called
-     /
-  Bus returns info of that chain (i.e. did auth and validation succeed)
-   |
-Handle command result (e.g. show any errors or a success message)
-```
-
-The flow for a read goes:
-```
-Request (e.g. HTTP, user interaction, CRON job, etc.)
-   |
-Create query instance (e.g. GetBooksByAuthorQuery)
-   |
-Send query to query bus
-   |
-  Within the bus, this happens:
-    \
-    Authorization of query (e.g. is user allowed to read this)
-      |
-    Validation of query (e.g. is the value supplied valid)
-      |
-    Execute query
-     /
-  Bus returns info of that chain (i.e. did auth and validation succeed)
-   |
-Handle query result (e.g. show any errors or return the result)
-```
-
 ## Usage Infos
 
 Cudio consists of the following NuGet packages:
@@ -293,7 +254,7 @@ Cudio consists of the following NuGet packages:
 | Cudio | Core library | [![NuGet](https://img.shields.io/nuget/v/Bildstein.Cudio.svg)](https://www.nuget.org/packages/Bildstein.Cudio/) |
 | Cudio.AspNetCore | Integration with ASP.NET Core | [![NuGet](https://img.shields.io/nuget/v/Bildstein.Cudio.AspNetCore.svg)](https://www.nuget.org/packages/Bildstein.Cudio.AspNetCore/) |
 
-Cudio is made to work with dependency injection and uses `Microsoft.Extensions.DependencyInjection.Abstractions` as a basis so it should integrate well with many DI frameworks out there.
+Cudio is made to work with dependency injection and uses `Microsoft.Extensions.DependencyInjection.Abstractions` as a basis, so it should integrate well with many DI frameworks out there.
 
 If you use app trimming you have to be careful to exclude any types/assemblies that Cudio uses (like command and query handlers).
 Cudio relies on reflection to discover handlers and methods to invoke.
@@ -305,7 +266,7 @@ This means that
  - you can have more than one instance of your application running as long as they all use the same DB (or you have your DB set up in a way that keeps all data in sync).
  - you can also have some instances only handling commands and some instances only queries (this can help you to scale more fine grained)
  - but it's not possible to split the updates for read and write tables/DBs into separate instances
- - and any issued command or query is always executed in the same process and cannot be sent to a different instance.
+ - any issued command or query is always executed in the same process and cannot be sent to a different instance
 
 So if you intend to build a bigger setup with microservices and event streaming and the like your are probably better of with something else.
 If you intend to grow your application slowly and maybe want to scale to microservices and event streaming sometime in the future you could consider starting out with Cudio and then replace it.

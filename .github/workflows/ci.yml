@@ -32,4 +32,4 @@ jobs:
       run: dotnet pack Source/Cudio.AspNetCore -c Release -o Publish --no-restore --version-suffix ci.${{github.run_number}}
 
     - name: Publish NuGet to Github
-      run: dotnet nuget push Publish/*.nupkg --no-symbols true --skip-duplicate -k ${{secrets.GITHUB_TOKEN}}
+      run: dotnet nuget push Publish/*.nupkg --no-symbols --skip-duplicate -k ${{secrets.GITHUB_TOKEN}}

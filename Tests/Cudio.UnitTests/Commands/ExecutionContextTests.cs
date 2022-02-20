@@ -64,7 +64,7 @@ namespace Cudio
         {
             return new CommandBus(
                 Mock.Of<IServiceProvider>(),
-                Mock.Of<IClaimsPrincipleProvider>(),
+                Mock.Of<IClaimsPrincipalProvider>(),
                 Mock.Of<ITransactionFactory>(),
                 Mock.Of<IBuilderCollection>());
         }

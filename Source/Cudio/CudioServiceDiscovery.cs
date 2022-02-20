@@ -16,6 +16,7 @@ namespace Cudio
         /// <summary>
         /// Initializes a new instance of the <see cref="CudioServiceDiscovery"/> class.
         /// </summary>
+        /// <remarks>The calling assembly is used to find types for commands, queries, handlers, etc.</remarks>
         public CudioServiceDiscovery()
             : this(Assembly.GetCallingAssembly())
         {
@@ -24,7 +25,7 @@ namespace Cudio
         /// <summary>
         /// Initializes a new instance of the <see cref="CudioServiceDiscovery"/> class.
         /// </summary>
-        /// <param name="handlerAssembly">The assembly that contains command and query handler types.</param>
+        /// <param name="handlerAssembly">The assembly that contains types for commands, queries, handlers, etc.</param>
         public CudioServiceDiscovery(Assembly handlerAssembly)
             : this(handlerAssembly.DefinedTypes)
         {
@@ -33,7 +34,7 @@ namespace Cudio
         /// <summary>
         /// Initializes a new instance of the <see cref="CudioServiceDiscovery"/> class.
         /// </summary>
-        /// <param name="handlerAssemblies">The assemblies that contain command and query handler types.</param>
+        /// <param name="handlerAssemblies">The assemblies that contain contains types for commands, queries, handlers, etc.</param>
         public CudioServiceDiscovery(params Assembly[] handlerAssemblies)
             : this(handlerAssemblies.SelectMany(t => t.DefinedTypes))
         {
@@ -42,7 +43,7 @@ namespace Cudio
         /// <summary>
         /// Initializes a new instance of the <see cref="CudioServiceDiscovery"/> class.
         /// </summary>
-        /// <param name="allowedTypes">The list of types that contains various handlers for Cudio.</param>
+        /// <param name="allowedTypes">The list of types that contains commands, queries, handlers, etc.</param>
         public CudioServiceDiscovery(IEnumerable<TypeInfo> allowedTypes)
         {
             types = allowedTypes
@@ -52,7 +53,7 @@ namespace Cudio
 
         /// <summary>
         /// Adds the Cudio services and registers command and query handlers defined in the given assembly.
-        /// You still need to add a <see cref="IClaimsPrincipleProvider"/> and <see cref="ITransactionFactory"/> yourself.
+        /// You still need to add a <see cref="IClaimsPrincipalProvider"/> and <see cref="ITransactionFactory"/> yourself.
         /// </summary>
         /// <param name="services">The service collection to add the services to.</param>
         public void AddAll(IServiceCollection services)

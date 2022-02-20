@@ -19,7 +19,7 @@ namespace Cudio.AspNetCore
             var provider = services.BuildServiceProvider();
             using var scope = provider.CreateScope();
             scope.ServiceProvider.Invoking(t => t.GetRequiredService<IHttpContextAccessor>()).Should().NotThrow();
-            scope.ServiceProvider.Invoking(t => t.GetRequiredService<IClaimsPrincipleProvider>()).Should().NotThrow().Which.Should().BeOfType<HttpContextClaimsPrincipalProvider>();
+            scope.ServiceProvider.Invoking(t => t.GetRequiredService<IClaimsPrincipalProvider>()).Should().NotThrow().Which.Should().BeOfType<HttpContextClaimsPrincipalProvider>();
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace Cudio.AspNetCore
             var provider = services.BuildServiceProvider();
             using var scope = provider.CreateScope();
             scope.ServiceProvider.Invoking(t => t.GetRequiredService<IHttpContextAccessor>()).Should().NotThrow();
-            scope.ServiceProvider.Invoking(t => t.GetRequiredService<IClaimsPrincipleProvider>()).Should().NotThrow().Which.Should().BeOfType<HttpContextClaimsPrincipalProvider>();
+            scope.ServiceProvider.Invoking(t => t.GetRequiredService<IClaimsPrincipalProvider>()).Should().NotThrow().Which.Should().BeOfType<HttpContextClaimsPrincipalProvider>();
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace Cudio.AspNetCore
             var provider = services.BuildServiceProvider();
             using var scope = provider.CreateScope();
             scope.ServiceProvider.Invoking(t => t.GetRequiredService<IHttpContextAccessor>()).Should().NotThrow();
-            scope.ServiceProvider.Invoking(t => t.GetRequiredService<IClaimsPrincipleProvider>()).Should().NotThrow().Which.Should().BeOfType<HttpContextClaimsPrincipalProvider>();
+            scope.ServiceProvider.Invoking(t => t.GetRequiredService<IClaimsPrincipalProvider>()).Should().NotThrow().Which.Should().BeOfType<HttpContextClaimsPrincipalProvider>();
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace Cudio.AspNetCore
             var provider = services.BuildServiceProvider();
             using var scope = provider.CreateScope();
             scope.ServiceProvider.Invoking(t => t.GetRequiredService<IHttpContextAccessor>()).Should().NotThrow();
-            scope.ServiceProvider.Invoking(t => t.GetRequiredService<IClaimsPrincipleProvider>()).Should().NotThrow().Which.Should().BeOfType<HttpContextClaimsPrincipalProvider>();
+            scope.ServiceProvider.Invoking(t => t.GetRequiredService<IClaimsPrincipalProvider>()).Should().NotThrow().Which.Should().BeOfType<HttpContextClaimsPrincipalProvider>();
         }
     }
 }

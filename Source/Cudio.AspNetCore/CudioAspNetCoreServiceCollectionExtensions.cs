@@ -59,7 +59,7 @@ namespace Cudio.AspNetCore
         private static IServiceCollection AddCudioBase(IServiceCollection services, CudioServiceDiscovery discovery)
         {
             services.AddHttpContextAccessor();
-            services.AddScoped<IClaimsPrincipleProvider, HttpContextClaimsPrincipalProvider>();
+            services.AddScoped<IClaimsPrincipalProvider, HttpContextClaimsPrincipalProvider>();
             discovery.AddAll(services);
 
             return services;

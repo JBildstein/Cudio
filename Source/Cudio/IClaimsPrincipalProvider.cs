@@ -5,7 +5,7 @@ namespace Cudio
     /// <summary>
     /// Provider for a <see cref="ClaimsPrincipal"/>.
     /// </summary>
-    public interface IClaimsPrincipleProvider
+    public interface IClaimsPrincipalProvider
     {
         /// <summary>
         /// Gets the current <see cref="ClaimsPrincipal"/>.

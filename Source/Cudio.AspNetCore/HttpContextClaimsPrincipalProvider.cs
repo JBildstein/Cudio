@@ -6,7 +6,7 @@ namespace Cudio.AspNetCore
     /// <summary>
     /// Provider for a <see cref="ClaimsPrincipal"/> from the HTTP context.
     /// </summary>
-    public class HttpContextClaimsPrincipalProvider : IClaimsPrincipleProvider
+    public class HttpContextClaimsPrincipalProvider : IClaimsPrincipalProvider
     {
         private static readonly ClaimsPrincipal DefaultPrincipal = new();
 

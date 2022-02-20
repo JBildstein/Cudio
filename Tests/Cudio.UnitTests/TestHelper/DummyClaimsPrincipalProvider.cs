@@ -2,7 +2,7 @@
 
 namespace Cudio
 {
-    public sealed class DummyClaimsPrincipleProvider : IClaimsPrincipleProvider
+    public sealed class DummyClaimsPrincipalProvider : IClaimsPrincipalProvider
     {
         public ClaimsPrincipal GetClaimsPrincipal()
         {

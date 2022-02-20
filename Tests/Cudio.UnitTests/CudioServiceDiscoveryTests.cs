@@ -15,7 +15,7 @@ namespace Cudio
         public void AddAll_WithoutTypes_AddsDefaultRequiredServices()
         {
             var services = new ServiceCollection();
-            services.AddScoped<IClaimsPrincipleProvider, DummyClaimsPrincipleProvider>();
+            services.AddScoped<IClaimsPrincipalProvider, DummyClaimsPrincipalProvider>();
             services.AddScoped<ITransactionFactory, DummyTransactionFactory>();
             var discovery = new CudioServiceDiscovery(Enumerable.Empty<TypeInfo>());
 

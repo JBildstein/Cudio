@@ -143,7 +143,7 @@ namespace Cudio
                 services.AddSingleton(queryValidate);
             }
 
-            return new QueryBus(services.BuildServiceProvider(), new DummyClaimsPrincipleProvider());
+            return new QueryBus(services.BuildServiceProvider(), new DummyClaimsPrincipalProvider());
         }
 
         public sealed class TestQuery : IQuery<int>

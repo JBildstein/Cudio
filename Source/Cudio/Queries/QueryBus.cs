@@ -10,14 +10,14 @@ namespace Cudio
     public class QueryBus : IQueryBus
     {
         private readonly IServiceProvider serviceProvider;
-        private readonly IClaimsPrincipleProvider claimsPrincipalProvider;
+        private readonly IClaimsPrincipalProvider claimsPrincipalProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="QueryBus"/> class.
         /// </summary>
         /// <param name="serviceProvider">Service provider for DI.</param>
         /// <param name="claimsPrincipalProvider">The claims principal provider to authorize commands.</param>
-        public QueryBus(IServiceProvider serviceProvider, IClaimsPrincipleProvider claimsPrincipalProvider)
+        public QueryBus(IServiceProvider serviceProvider, IClaimsPrincipalProvider claimsPrincipalProvider)
         {
             this.serviceProvider = serviceProvider;
             this.claimsPrincipalProvider = claimsPrincipalProvider;

@@ -10,7 +10,7 @@ namespace Cudio
     public class CommandBus : ICommandBus
     {
         private readonly IServiceProvider serviceProvider;
-        private readonly IClaimsPrincipleProvider claimsPrincipalProvider;
+        private readonly IClaimsPrincipalProvider claimsPrincipalProvider;
         private readonly ITransactionFactory transactionFactory;
         private readonly IBuilderCollection builderCollection;
 
@@ -23,7 +23,7 @@ namespace Cudio
         /// <param name="builderCollection">The read table builder collection.</param>
         public CommandBus(
             IServiceProvider serviceProvider,
-            IClaimsPrincipleProvider claimsPrincipalProvider,
+            IClaimsPrincipalProvider claimsPrincipalProvider,
             ITransactionFactory transactionFactory,
             IBuilderCollection builderCollection)
         {

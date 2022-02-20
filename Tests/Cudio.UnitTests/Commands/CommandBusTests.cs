@@ -443,7 +443,7 @@ namespace Cudio
 
             return new CommandBus(
                 services.BuildServiceProvider(),
-                new DummyClaimsPrincipleProvider(),
+                new DummyClaimsPrincipalProvider(),
                 new DummyTransactionFactory(),
                 new BuilderCollection(builders.Select(t => t.GetType())));
         }
